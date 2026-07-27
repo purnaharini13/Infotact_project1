@@ -8,18 +8,17 @@ from dotenv import load_dotenv
 # Load Environment Variables
 # ----------------------------
 load_dotenv()
-
 # ----------------------------
 # Snowflake Connection
 # ----------------------------
 conn = snowflake.connector.connect(
-    user=os.getenv("SNOWFLAKE_USER"),
-    password=os.getenv("SNOWFLAKE_PASSWORD"),
-    account=os.getenv("SNOWFLAKE_ACCOUNT"),
-    warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),
-    database=os.getenv("SNOWFLAKE_DATABASE"),
-    schema=os.getenv("SNOWFLAKE_SCHEMA"),
-    role=os.getenv("SNOWFLAKE_ROLE")
+    user="HARSHITHA",
+    password="Nayakaharshitha@1",
+    account="WPCUUVA-AH54929",
+    warehouse="COMPUTE_WH",
+    database="IOT_DB",
+    schema="PUBLIC",
+    role="ACCOUNTADMIN"
 )
 
 cursor = conn.cursor()
