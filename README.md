@@ -1,1 +1,2 @@
-# Infotact_project1
+## Project Progress
+- Completed initial Kafka setup.
