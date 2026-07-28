@@ -7,6 +7,10 @@ import { FaTemperatureHigh, FaTint, FaWind } from "react-icons/fa";
 import { MdSpeed } from "react-icons/md";
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import TemperatureChart from "../components/charts/TemperatureChart";
+import HumidityChart from "../components/charts/HumidityChart";
+import PressureChart from "../components/charts/PressureChart";
+import AirQualityChart from "../components/charts/AirQualityChart";
 import "../styles/Dashboard.css";
 
 function Dashboard() {
@@ -55,7 +59,6 @@ function Dashboard() {
 
     fetchKpi();
   }, []);
-  console.log("Dashboard sensorData:", sensorData);
   return (
     <>
       <Navbar />
@@ -133,6 +136,16 @@ function Dashboard() {
                 <h3>Last Updated</h3>
                 <p>Just Now</p>
               </div>
+            </div>
+          </section>
+          <section id="analytics" className="analytics-section">
+            <h2>Analytics Dashboard</h2>
+
+            <div className="charts-grid">
+              <TemperatureChart data={sensorData} />
+              <HumidityChart data={sensorData} />
+              <PressureChart data={sensorData} />
+              <AirQualityChart data={sensorData} />
             </div>
           </section>
           <section id="sensors">

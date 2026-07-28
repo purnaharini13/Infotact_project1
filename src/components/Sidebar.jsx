@@ -27,7 +27,7 @@ function Sidebar() {
         </li>
 
         <li>
-          <a href="#">⚙ Settings</a>
+          <a href="#settings">⚙ Settings</a>
         </li>
       </ul>
     </aside>

@@ -1,3 +1,4 @@
+// App.jsx
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
