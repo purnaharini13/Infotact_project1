@@ -3,7 +3,7 @@ import snowflake.connector
 from dotenv import load_dotenv
 import os
 
-Load .env file
+# Load .env file
 load_dotenv()
 
 app = FastAPI()
@@ -51,6 +51,31 @@ def get_sensor_data():
     cursor.close()
     return data
 
+@app.get("/kpi")
+def get_kpis():
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            ROUND(AVG(TEMPERATURE), 2),
+            ROUND(AVG(HUMIDITY), 2),
+            ROUND(AVG(PRESSURE), 2),
+            ROUND(AVG(AIR_QUALITY), 2),
+            COUNT(*)
+        FROM SENSOR_DATA
+    """)
+
+    row = cursor.fetchone()
+    cursor.close()
+
+    return {
+        "average_temperature": row[0],
+        "average_humidity": row[1],
+        "average_pressure": row[2],
+        "average_air_quality": row[3],
+        "total_records": row[4]
+    }
+
 @app.get("/alerts")
 def get_alerts():
     cursor = conn.cursor()
@@ -73,7 +98,7 @@ def get_alerts():
     rows = cursor.fetchall()
     cursor.close()
 
-alerts = []
+    alerts = []
 
     for row in rows:
         alerts.append({
