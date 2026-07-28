@@ -1,0 +1,75 @@
+/* ===========================
+   Dashboard Layout
+=========================== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: calc(100vh - 85px);
+  background-color: #f4f6f9;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.dashboard-content h1 {
+  font-size: 36px;
+  color: #1565c0;
+  margin-bottom: 30px;
+}
+
+/* ===========================
+   KPI Cards Grid
+=========================== */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* ===========================
+   Today's Summary
+=========================== */
+
+.summary-section {
+  margin-top: 40px;
+}
+
+.summary-section h2 {
+  color: #1565c0;
+  margin-bottom: 20px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.summary-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.summary-box:hover {
+  transform: translateY(-5px);
+}
+
+.summary-box h3 {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.summary-box p {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1565c0;
+}
