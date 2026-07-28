@@ -18,6 +18,9 @@ conn = snowflake.connector.connect(
     role=os.getenv("SNOWFLAKE_ROLE")
 )
 
+@app.get("/")
+def home():
+    return {"message": "IoT Sensor Monitoring Backend is running"}
 
 @app.get("/sensor-data")
 def get_sensor_data():
