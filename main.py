@@ -70,3 +70,16 @@ def get_alerts():
     rows = cursor.fetchall()
     cursor.close()
 
+alerts = []
+
+    for row in rows:
+        alerts.append({
+            "sensor_id": row[0],
+            "temperature": row[1],
+            "humidity": row[2],
+            "pressure": row[3],
+            "air_quality": row[4],
+            "timestamp": str(row[5])
+        })
+
+    return alerts
