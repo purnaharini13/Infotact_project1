@@ -1,5 +1,0 @@
-.env
-__pycache__/
-main.cpython-313.pyc
-.vscode/
-test_connection.py
