@@ -15,31 +15,11 @@ import "../styles/Dashboard.css";
 
 function Dashboard() {
   const [sensorData, setSensorData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [alerts, setAlerts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const fetchSensorData = async () => {
-      try {
-        const response = await API.get("/sensor-data");
-        setSensorData(response.data);
-      } catch (error) {
-        console.error("Error fetching sensor data:", error);
-      }
-    };
-
-    const fetchAlerts = async () => {
-      try {
-        const response = await API.get("/alerts/");
-        setAlerts(response.data);
-      } catch (error) {
-        console.error("Error fetching alerts:", error);
-      }
-    };
-
-    fetchSensorData();
-    fetchAlerts();
-  }, []);
   const [kpi, setKpi] = useState({
     average_temperature: 0,
     average_humidity: 0,
@@ -49,20 +29,64 @@ function Dashboard() {
   });
 
   useEffect(() => {
-    async function fetchKpi() {
+    const fetchSensorData = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await API.get("/sensor-data");
+        setSensorData(response.data);
+      } catch (err) {
+        console.error("Error fetching sensor data:", err);
+        setError("Unable to load sensor data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchAlerts = async () => {
+      try {
+        const response = await API.get("/alerts/");
+        setAlerts(response.data);
+      } catch (err) {
+        console.error("Error fetching alerts:", err);
+      }
+    };
+
+    const fetchKpi = async () => {
       try {
         const response = await API.get("/kpi");
         setKpi(response.data);
-      } catch (error) {
-        console.error("Error fetching KPI:", error);
+      } catch (err) {
+        console.error("Error fetching KPI:", err);
       }
-    }
+    };
 
+    fetchSensorData();
+    fetchAlerts();
     fetchKpi();
   }, []);
+
   const filteredSensorData = sensorData.filter((sensor) =>
     sensor.sensor_id.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <h2>Loading sensor data...</h2>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="loading-screen">
+        <h2>{error}</h2>
+      </div>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -115,8 +139,6 @@ function Dashboard() {
             />
           </div>
 
-          {/* Today's Summary Section */}
-
           <section className="summary-section" id="summary">
             <h2>Today's Summary</h2>
 
@@ -142,6 +164,7 @@ function Dashboard() {
               </div>
             </div>
           </section>
+
           <section id="analytics" className="analytics-section">
             <h2>Analytics Dashboard</h2>
 
@@ -152,6 +175,7 @@ function Dashboard() {
               <AirQualityChart data={sensorData} />
             </div>
           </section>
+
           <section id="sensors">
             <div className="sensor-toolbar">
               <input
@@ -161,9 +185,11 @@ function Dashboard() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
               />
+
               <button className="clear-btn" onClick={() => setSearchTerm("")}>
                 ✖ Clear
               </button>
+
               <button
                 className="refresh-btn"
                 onClick={() => window.location.reload()}
@@ -171,11 +197,14 @@ function Dashboard() {
                 🔄 Refresh
               </button>
             </div>
+
             <p className="sensor-count">
               Showing {filteredSensorData.length} of {sensorData.length} sensors
             </p>
+
             <SensorTable sensorData={filteredSensorData} />
           </section>
+
           <section id="alerts">
             <AlertPanel />
           </section>
