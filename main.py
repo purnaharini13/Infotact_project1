@@ -1,15 +1,12 @@
-#from fastapi import FastAPI
-#import snowflake.connector
-#from dotenv import load_dotenv
-#import os
+from fastapi import FastAPI
+import snowflake.connector
+from dotenv import load_dotenv
+import os
 
-# Load .env file
-#load_dotenv()
+Load .env file
+load_dotenv()
 
-#app = FastAPI()
-
-git add main.py
-git commit -m "Initial FastAPI backend setup"
+app = FastAPI()
 
 conn = snowflake.connector.connect(
     user=os.getenv("SNOWFLAKE_USER"),
