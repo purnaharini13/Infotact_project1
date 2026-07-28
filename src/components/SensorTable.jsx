@@ -1,6 +1,14 @@
 import "../styles/SensorTable.css";
 
 function SensorTable({ sensorData }) {
+  if (sensorData.length === 0) {
+    return (
+      <section className="sensor-table-section">
+        <h2>Recent Sensor Readings</h2>
+        <p className="no-data">No sensors found matching your search.</p>
+      </section>
+    );
+  }
   return (
     <section className="sensor-table-section">
       <h2>Recent Sensor Readings</h2>

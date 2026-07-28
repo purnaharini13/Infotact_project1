@@ -16,6 +16,7 @@ import "../styles/Dashboard.css";
 function Dashboard() {
   const [sensorData, setSensorData] = useState([]);
   const [alerts, setAlerts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchSensorData = async () => {
@@ -59,6 +60,9 @@ function Dashboard() {
 
     fetchKpi();
   }, []);
+  const filteredSensorData = sensorData.filter((sensor) =>
+    sensor.sensor_id.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
   return (
     <>
       <Navbar />
@@ -149,7 +153,28 @@ function Dashboard() {
             </div>
           </section>
           <section id="sensors">
-            <SensorTable sensorData={sensorData} />
+            <div className="sensor-toolbar">
+              <input
+                type="text"
+                placeholder="🔍 Search Sensor ID..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              <button className="clear-btn" onClick={() => setSearchTerm("")}>
+                ✖ Clear
+              </button>
+              <button
+                className="refresh-btn"
+                onClick={() => window.location.reload()}
+              >
+                🔄 Refresh
+              </button>
+            </div>
+            <p className="sensor-count">
+              Showing {filteredSensorData.length} of {sensorData.length} sensors
+            </p>
+            <SensorTable sensorData={filteredSensorData} />
           </section>
           <section id="alerts">
             <AlertPanel />
