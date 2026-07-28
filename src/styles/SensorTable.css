@@ -1,0 +1,33 @@
+.sensor-table-section {
+  margin-top: 40px;
+}
+
+.sensor-table-section h2 {
+  color: #1565c0;
+  margin-bottom: 20px;
+}
+
+.sensor-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-table th {
+  background: #1565c0;
+  color: white;
+  padding: 15px;
+}
+
+.sensor-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.sensor-table tr:hover {
+  background: #f5f9ff;
+}
