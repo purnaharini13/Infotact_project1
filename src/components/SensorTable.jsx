@@ -1,33 +1,6 @@
 import "../styles/SensorTable.css";
 
-function SensorTable() {
-  const sensorData = [
-    {
-      sensor: "Temperature",
-      value: "32°C",
-      location: "Room A",
-      status: "Normal",
-    },
-    {
-      sensor: "Humidity",
-      value: "68%",
-      location: "Room B",
-      status: "Stable",
-    },
-    {
-      sensor: "Pressure",
-      value: "1012 hPa",
-      location: "Room C",
-      status: "Normal",
-    },
-    {
-      sensor: "Air Quality",
-      value: "45 AQI",
-      location: "Room D",
-      status: "Good",
-    },
-  ];
-
+function SensorTable({ sensorData }) {
   return (
     <section className="sensor-table-section">
       <h2>Recent Sensor Readings</h2>
@@ -35,20 +8,24 @@ function SensorTable() {
       <table className="sensor-table">
         <thead>
           <tr>
-            <th>Sensor</th>
-            <th>Value</th>
-            <th>Location</th>
-            <th>Status</th>
+            <th>Sensor ID</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+            <th>Pressure</th>
+            <th>Air Quality</th>
+            <th>Timestamp</th>
           </tr>
         </thead>
 
         <tbody>
-          {sensorData.map((sensor, index) => (
+          {sensorData.slice(0, 10).map((sensor, index) => (
             <tr key={index}>
-              <td>{sensor.sensor}</td>
-              <td>{sensor.value}</td>
-              <td>{sensor.location}</td>
-              <td>{sensor.status}</td>
+              <td>{sensor.sensor_id}</td>
+              <td>{sensor.temperature} °C</td>
+              <td>{sensor.humidity} %</td>
+              <td>{sensor.pressure} hPa</td>
+              <td>{sensor.air_quality} AQI</td>
+              <td>{sensor.timestamp.split(".")[0]}</td>
             </tr>
           ))}
         </tbody>

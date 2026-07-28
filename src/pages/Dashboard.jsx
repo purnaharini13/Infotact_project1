@@ -16,7 +16,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchSensorData = async () => {
       try {
-        const response = await API.get("/sensors/");
+        const response = await API.get("/sensor-data");
         setSensorData(response.data);
       } catch (error) {
         console.error("Error fetching sensor data:", error);
@@ -55,6 +55,7 @@ function Dashboard() {
 
     fetchKpi();
   }, []);
+  console.log("Dashboard sensorData:", sensorData);
   return (
     <>
       <Navbar />
@@ -135,7 +136,7 @@ function Dashboard() {
             </div>
           </section>
           <section id="sensors">
-            <SensorTable />
+            <SensorTable sensorData={sensorData} />
           </section>
           <section id="alerts">
             <AlertPanel />
